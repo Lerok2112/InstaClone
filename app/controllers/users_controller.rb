@@ -1,6 +1,14 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   #before_action :authenticate_user!, only: [:edit, :update, :destroy]
+
+  before_action :check_user, only: [:edit, :update, :destroy]
+  def check_user
+  if set_user.id != current_user.id
+  redirect_to users_path
+  flash[:notice] = "No permissions allowed" 
+  end
+  end
   # GET /users
   # GET /users.json
   def index
