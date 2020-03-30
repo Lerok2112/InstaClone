@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  #devise_for :users
+  resources :posts
+  #resources :posts, only: [:new, :create]
+
+
   devise_for :users, controllers: {
         sessions: 'users/sessions'
       }

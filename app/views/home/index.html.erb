@@ -4,6 +4,7 @@
 <br><% if user_signed_in? %>
     <span>Здравствуйте, <%= current_user.email %></span>
     <%= link_to 'Выйти', destroy_user_session_path, :method => :delete %>
+  <br><br>  <%= link_to 'Create new post', new_post_path%>
 <% else %>
 <p class="lead">Please, sign in or register to continue.</p>
     <%= link_to 'Войти', new_user_session_path %> или <%= link_to 'Зарегистрироваться', new_user_registration_path %>
