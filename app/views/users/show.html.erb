@@ -15,5 +15,31 @@
   <%= @user.email %>
 </p>
 
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
+<div class="posts">
+  <% @posts.each do |post| %>
+
+<section class="post">
+  <div class="user">
+    <div class="avatar">
+      <img src="user_avatar.jpg">
+    </div>
+    <div class="username">
+       <%= post.user.firstname%> <%= post.user.lastname%>
+    </div>
+  </div>
+  <div class="user-images">
+    <% @posts.each do |post|%>
+      <div class="wrapper">
+        <%=image_tag post.image, class: 'main-image'  %>
+      </div>
+    <% end %>
+  </div>
+  <div class="description">
+    <%= post.body %>
+  </div>
+</section>
+<% end %>
+</div>

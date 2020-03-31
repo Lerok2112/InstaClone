@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   def check_user
   if set_user.id != current_user.id
   redirect_to users_path
-  flash[:notice] = "No permissions allowed" 
+  flash[:notice] = "No permissions allowed"
   end
   end
   # GET /users
@@ -18,9 +18,8 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @user = User.find(params[:id])
+    @posts = current_user.posts.order(created_at: :desc)
   end
-
   # GET /users/new
   def new
     @user = User.new
