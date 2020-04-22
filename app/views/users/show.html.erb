@@ -31,15 +31,16 @@
     </div>
   </div>
   <div class="user-images">
-    <% @posts.each do |post|%>
       <div class="wrapper">
         <%=image_tag post.image, class: 'main-image'  %>
       </div>
-    <% end %>
   </div>
   <div class="description">
     <%= post.body %>
   </div>
+  <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
 </section>
+
 <% end %>
 </div>
