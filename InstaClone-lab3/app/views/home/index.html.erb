@@ -1,0 +1,33 @@
+
+<h1 class="mt-5">Welcome to Homepage of Instagramchik!</h1>
+
+<br><% if user_signed_in? %>
+    <span>Здравствуйте, <%= current_user.email %></span>
+    <%= link_to 'Выйти', destroy_user_session_path, :method => :delete %>
+  <br><br>  <%= link_to 'Create new post', new_post_path%>
+<% else %>
+<p class="lead">Please, sign in or register to continue.</p>
+    <%= link_to 'Войти', new_user_session_path %> или <%= link_to 'Зарегистрироваться', new_user_registration_path %>
+<% end %>
+
+
+<div class="posts">
+  <% @posts.each do |post| %>
+
+      <section class="post">
+  <div class="user">
+    <div class="avatar">
+      <img src="user_avatar.jpg">
+    </div>
+    <div class="username">
+       <%= post.user.firstname%> <%= post.user.lastname%>
+    </div>
+  </div>
+  <%= image_tag post.image, class: 'main-image' %>
+  <div class="description">
+    <%= post.body %>
+  </div>
+</section>
+
+  <% end %>
+</div>
