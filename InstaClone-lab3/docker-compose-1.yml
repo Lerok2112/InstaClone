@@ -14,7 +14,7 @@ services:
 
   web:
     image:
-      Lera2112/instaclone:0.0.2
+      lerok2112/web_insta:0.0.3
     #build: .
     command: bash -c "rm -f tmp/pids/server.pid && yarn install --check-files && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:

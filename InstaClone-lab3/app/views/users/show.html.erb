@@ -1,23 +1,53 @@
 <p id="notice"><%= notice %></p>
+<div class="profile row">
+  <div class="col-md-4 avatar">
+    <div class="wrapper">
+        <img src="https://instuigram-avatar.jpg">
+      </div>
+  </div>
+  <div class="col-md-8 basic-info">
+    <div class="user-wrapper">
+        <h2 class="username">
+          <strong>Username:</strong>
+          <%= @user.firstname %>
+          <%= @user.lastname %>
 
-<p>
-  <strong>Firstname:</strong>
-  <%= @user.firstname %>
-</p>
+        </h2>
 
-<p>
-  <strong>Lastname:</strong>
-  <%= @user.lastname %>
-</p>
+      </div>
+      <ul class="posts">
+        <li><span><%= @user.posts.count %></span> posts</li>
+        <li><span><%= @user.followers.count%></span> followers</li>
+        <li><span><%= @user.following.count%></span> following</li>
+      </ul>
+      <h2 class="name"> </h2>
+      <a class="website"><%= @user.email %></a>
+      <a class="edit-profile">
+      <%= #link_to 'Edit profile', edit_user_path(@user)
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+        if @user == current_user
+             link_to 'Edit Profile', edit_user_path(@user),
+                                      class: 'btn edit-button'
+        else if current_user.following?(@user)
+            link_to 'Unfollow', friendship_path(user_id: @user.id),
+                                   class: 'btn unfollow-button',
+                                   id: 'unfollow-button',
+                                   method: :delete
+        else
+            link_to 'Follow', friendships_path(user_id: @user.id),
+                                   class: 'btn unfollow-button',
+                                   id: 'unfollow-button',
+                                    method: :post
+
+        end
+      end
+       %>
+      </a>
+    </div>
+
+  </div>
 
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
 <div class="posts">
   <% @posts.each do |post| %>
 
