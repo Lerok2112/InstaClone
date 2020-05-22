@@ -1,16 +1,53 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
+<div class="posts">
+  <section class="post">
+    <p>
+      <strong>Title:</strong>
+      <%= @post.title %>
+    </p>
 
-<p>
-  <strong>Body:</strong>
-  <%= @post.body %>
-</p>
-<p>
-<%= image_tag url_for(@post.image) %>
-</p>
+    <p>
+      <strong>Body:</strong>
+      <%= @post.body %>
+    </p>
+  <div class="user">
+    <div class="avatar">
+      <img src="user_avatar.jpg">
+    </div>
+    <div class="username">
+    <a href=''> <%= @post.user.firstname%> <%=@post.user.lastname%></a>
+    </div>
+  </div>
+  <%= image_tag @post.image, class: 'main-image' %>
+  <div class="description">
+    <%=@post.body %>
+  </div>
+  <td><%= link_to 'Show', @post %></td>
+  <div class="comment-count">
+            <span class="tag is-rounded"><%= @post.comments.count %> comments</span>
+          </div>
+  <%= render @post.comments %>
+  <section class="section comments">
+      <div class="container">
+          <div class="comment-form">
+              <hr />
+              <h5 class="subtitle is-3">Leave a comment</h5>
+              <hr>
+              <%= form_with(model: [@user,@post,@post.comments.build ], local: true) do |form| %>
+              <p>
+              <%= form.label :content %><br>
+              <%= form.text_field :content %>
+              </p>
+              <%= form.submit %>
+              <%end%>
+                </div>
+
+      </div>
+  </section>
+  </section>>
+      </div>
+
+
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', posts_path %>

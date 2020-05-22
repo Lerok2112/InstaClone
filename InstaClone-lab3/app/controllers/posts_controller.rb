@@ -10,11 +10,17 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    #  @user = User.find(params[:user_id])
+    #  @post = @user.posts.find(params[:id])
+      @comments = Comment.where(post_id: @post).order("created_at DESC")
   end
 
   # GET /posts/new
   def new
-    @post = Post.new
+    #@post = Post.new
+
+    @post = Post.new(params[:post])
+    @comment = Comment.new(post_id: params[:post_id])
   end
 
   # GET /posts/1/edit
