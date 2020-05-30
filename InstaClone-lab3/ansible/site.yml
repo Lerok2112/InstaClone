@@ -1,0 +1,39 @@
+- hosts: rails
+  gather_facts: no
+  remote_user: ubuntu
+  become: yes
+  tasks:
+    - name: Update all packages to the latest version
+      apt:
+        upgrade: dist
+    - name: Downloading githab Lavruschik 
+      git: 
+        repo: "https://github.com/lwwwr/sample-rails-hw.git"
+        dest: blog
+        accept_hostkey: yes
+        force: true
+    - name: bundle install
+      become: true  
+      become_user: ubuntu
+      command: bash -lc "bundle install"
+      args:
+        chdir: "/home/ubuntu/blog"   
+    - name: access for a normal yarn installation
+      become: true
+      become_user: ubuntu
+      command: bash -lc "sudo chmod -R 777 ."
+      args:
+        chdir: "/home/ubuntu/blog"  
+    - name: Puma Stop
+      become: true  
+      become_user: ubuntu
+      command: bash -lc "bundle exec pumactl -F config/puma.rb stop"
+      args:
+        chdir: "/home/ubuntu/blog"
+      ignore_errors: true      
+    - name: rails s
+      become: true  
+      become_user: ubuntu
+      command: bash -lc "rails s -p 3001 -b 0.0.0.0"
+      args:
+        chdir: "/home/ubuntu/blog"
