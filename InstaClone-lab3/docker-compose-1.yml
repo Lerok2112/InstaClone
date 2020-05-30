@@ -1,20 +1,16 @@
 version: '3'
 services:
-
   db:
     image: postgres:12.2
-    #volumes:
-    #  - ./tmp/db:/var/lib/postgresql/data
     ports:
       - "5435:5432"  
     environment: 
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: "db"
-
   web:
     image:
-      lerok2112/web_insta:0.0.3
+      lerok2112/web_insta:0.0.5
     #build: .
     command: bash -c "rm -f tmp/pids/server.pid && yarn install --check-files && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
@@ -22,6 +18,6 @@ services:
     ports:
       - "3000:3000"
     env_file:
-      - web.env  
+      - 1.env  
     depends_on:
       - db
